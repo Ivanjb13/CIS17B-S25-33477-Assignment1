@@ -1,0 +1,83 @@
+#include <iostream>
+#include <string>
+#include "bankaccount.h"
+using namespace std;
+
+//Prototypes for functions
+void menu();
+double deposit();
+double withdraw();
+
+int main(){
+    int choice = 0; //variable for menu choice
+    string name=""; //acount holder name
+    double b=0; //balance
+    double w; //withdraw variable
+    BankAccount person(name, b); //creates object of BankAccount class
+
+    //start of program
+    do{
+         cout<<endl;
+         menu();
+         cout<<"Enter your choice: ";
+         cin>>choice;
+         switch(choice){
+            case 1:
+                cout<<"Enter account holder name: ";
+                cin.ignore();
+                getline(cin,name);
+                cout<<"Enter starting balance: $";
+                cin>>b;
+                person = BankAccount(name,b);
+                cout<<"/nAccount created successfully!"<<endl;
+                break;
+            case 2:
+                person.deposit(deposit());
+                cout<<"Deposit successful. New balance: $"<<person.getBalance()<<endl;
+                break;
+            case 3:
+                w = withdraw();
+                if(w>person.getBalance()){
+                    cout<<"Insufficient funds. Current balance: $"<<person.getBalance()<<endl;
+                }
+                else {
+                    person.withdraw(w);
+                    cout<<"Withdrawal successful. New balance: $"<<person.getBalance()<<endl;
+                }
+                break;
+            case 4:
+                cout<<"Balance: $"<<person.getBalance()<<endl;
+                break;
+            case 5:
+                cout<<"Exiting"<<endl;
+                break;
+         }
+    }while(choice<5);
+    return 0;
+}
+
+//Function to display menu
+void menu(){
+    cout<<"Welcome to RCC Bank"<<endl;
+    cout<<"1: Create Account"<<endl;
+    cout<<"2: Deposit Money"<<endl;
+    cout<<"3. Withdraw Money"<<endl;
+    cout<<"4. Check Balance"<<endl;
+    cout<<"5. Exit"<<endl;
+}
+
+//Function to deposit money
+double deposit(){
+    double a;
+    cout<<"Enter amount to deposit: $";
+    cin>>a;
+    return a;
+}
+
+//Function to withdraw money
+double withdraw(){
+    double a;
+    cout<<"Enter amount to withdraw: $";
+    cin>>a;
+    return a;
+}
